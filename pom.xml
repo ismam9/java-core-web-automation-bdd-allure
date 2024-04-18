@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.framework.selenium</groupId>
-    <artifactId>java-core-web-automation-bdd-old</artifactId>
+    <artifactId>java-core-web-automation-bdd-allure</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -128,9 +128,36 @@
                 <artifactId>allure-maven</artifactId>
                 <version>2.12.0</version>
                 <configuration>
+                    <!-- Configuración específica de Allure Maven -->
                     <reportVersion>${allure.version}</reportVersion>
                     <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>run-allure-report-generation</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${basedir}/.allure/allure-${allure.version}/bin/allure.bat</executable>
+                            <workingDirectory>${basedir}</workingDirectory>
+                            <arguments>
+                                <argument>generate</argument>
+                                <argument>-c</argument>
+                                <argument>${project.build.directory}/allure-results</argument>
+                                <argument>-o</argument>
+                                <argument>${project.build.directory}/allure-report</argument>
+                                <argument>--single-file</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -143,5 +170,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
