@@ -121,3 +121,7 @@ But, now we are need to invoce `exec:exec@run-allure-report-generation` after al
 
 > [!TIP]
 > We can edit the configuration run on Intellij and save this run configurations. You can do this Run > Edit Configurations
+
+# To Do
+- [ ] Cucumber task. Rerun of failed tests
+- [ ] Allure Task. Categories and Screenshots
